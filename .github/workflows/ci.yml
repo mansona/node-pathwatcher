@@ -38,3 +38,51 @@ jobs:
     steps:
       - name: Skip CI 🚫
         run: echo skip ci
+
+  Test-gyp:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node_version:
+          - 12
+          - 14
+          - 16
+
+    steps:
+      - run: npm install node-gyp
+      - run: npm install -g node-pre-gyp
+      - run: npm install -g node-pre-gyp-github
+      - run: npm install --build-from-sources
+      - run: npx node-pre-gyp configure
+      - run: npx node-pre-gyp build
+      - run: npx node-pre-gyp package
+
+  Deploy-gyp:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node_version:
+          - 12
+          - 14
+          - 16
+
+    steps:
+      - run: npm install node-gyp
+      - run: npm install -g node-pre-gyp
+      - run: npm install -g node-pre-gyp-github
+      - run: npm install --build-from-sources
+      - run: npx node-pre-gyp configure
+      - run: npx node-pre-gyp build
+      - run: npx node-pre-gyp package
+      - run: npx node-pre-gyp-github publish --release

@@ -18,8 +18,16 @@
   },
   "homepage": "http://atom.github.io/node-pathwatcher",
   "scripts": {
+    "install": "node-pre-gyp install --fallback-to-build",
     "prepublish": "grunt prepublish",
     "test": "grunt test"
+  },
+  "binary": {
+    "module_name": "pathwatcher",
+    "module_path": "./build/Release/",
+    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "host": "https://github.com/dhruvit-r/node-pathwatcher/releases/download/",
+    "remote_path": "{version}"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -41,6 +49,7 @@
     "grim": "^2.0.1",
     "iconv-lite": "~0.4.4",
     "nan": "^2.10.0",
+    "node-pre-gyp": "^0.14.0",
     "underscore-plus": "~1.x"
   }
 }
