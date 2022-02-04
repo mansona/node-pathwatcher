@@ -152,7 +152,7 @@ describe 'PathWatcher', ->
       nested3 = path.join(nested2, 'nested3')
       fs.mkdirSync(nested1)
       fs.mkdirSync(nested2)
-      fs.writeFileSync(nested3)
+      fs.writeFileSync(nested3, "something")
 
       subscription1 = pathWatcher.watch nested1, ->
       subscription2 = pathWatcher.watch nested2, ->
