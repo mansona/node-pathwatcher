@@ -40,7 +40,7 @@ module.exports = (grunt) ->
 
     shell:
       rebuild:
-        command: 'npm build .'
+        command: 'npm rebuild .'
         options:
           stdout: true
           stderr: true
